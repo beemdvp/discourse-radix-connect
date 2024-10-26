@@ -8,7 +8,7 @@ en:
         radix_application_version: "Application Version"
         radix_rola_api_url: "ROLA Api Url"
         categories:
-          radix-connect: "Radix Connect"
+          discourse-radix-connect: "Radix Connect"
   js:
     discourse_plugin_name:
       placeholder: placeholder
