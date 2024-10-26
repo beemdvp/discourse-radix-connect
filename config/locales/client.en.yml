@@ -2,8 +2,13 @@ en:
   admin_js:
     admin:
       site_settings:
+        radix_dapp_definition_address: "Dapp Definition Address"
+        radix_network_id: "Network ID"
+        radix_application_name: "Application Name"
+        radix_application_version: "Application Version"
+        radix_rola_api_url: "ROLA Api Url"
         categories:
-          TODO_plugin_name: "Plugin Name"
+          radix-connect: "Radix Connect"
   js:
     discourse_plugin_name:
       placeholder: placeholder
