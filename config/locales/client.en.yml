@@ -12,3 +12,9 @@ en:
   js:
     discourse_plugin_name:
       placeholder: placeholder
+    login:
+      radix:
+        title: "Radix Connect"
+  login:
+    radix:
+      title: "Radix Connect"

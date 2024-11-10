@@ -1,0 +1,23 @@
+{{#if this.radixDappToolkit }}
+  <div style="padding-bottom: 20px">
+    <label class="control-label">Migrate To Radix Connect</label>
+    {{!-- <div class="control-group pref-name" data-setting-name="user-name"> --}}
+    {{!--   <label class="control-label" style="font-size: large;">1. Password Reset Token</label> --}}
+    {{!--   <div class="controls"> --}}
+    {{!--     <input type="button" class="btn btn-default" {{on "click" this.requestPasswordReset}} value="Password Reset" /> --}}
+    {{!--   </div> --}}
+    {{!--   <div class="instructions">Request password reset</div> --}}
+    {{!-- </div> --}}
+    {{!-- <div class="control-group pref-name" data-setting-name="user-name"> --}}
+    {{!--   <label class="control-label" style="font-size: large;">2. Password Reset Token</label> --}}
+    {{!--   <div class="controls"> --}}
+    {{!--     <input placeholder="" maxlength="255" class="input-large" type="text"> --}}
+    {{!--   </div> --}}
+    {{!--   <div class="instructions">Enter password reset token from email received</div> --}}
+    {{!-- </div> --}}
+    {{!-- <label class="control-label" style="font-size: large;">Migrate Radix Button</label> --}}
+    <radix-connect-button />
+      <div class="instructions">Connect your wallet and migrate to using Radix for logins.</div>
+      <div class="instructions">Ensure your email / nickname matches the user details.</div>
+  </div>
+{{/if}}

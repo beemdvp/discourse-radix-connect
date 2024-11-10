@@ -13,11 +13,12 @@ enabled_site_setting :radix_dapp_definition_address
 enabled_site_setting :radix_network_id
 enabled_site_setting :radix_application_name
 enabled_site_setting :radix_application_version
+enabled_site_setting :enable_rola_logins
 
 register_asset "stylesheets/main.scss"
 
 module ::RadixConnectPlugin
-  PLUGIN_NAME = "Radix Connect"
+  PLUGIN_NAME = "discourse-radix-connect"
 end
 
 require_relative "lib/radix_connect_module/engine"

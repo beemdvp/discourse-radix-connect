@@ -17,3 +17,6 @@ plugins:
   radix_rola_api_url:
     default: ""
     client: true
+  enable_rola_logins:
+    default: true
+    client: true
