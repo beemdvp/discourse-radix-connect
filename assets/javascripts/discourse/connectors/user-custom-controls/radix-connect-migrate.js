@@ -1,8 +1,9 @@
 import { tracked } from "@glimmer/tracking";
 import Component from "@ember/component";
 import { service } from "@ember/service";
+import logout from "discourse/lib/logout";
 
-const getCsrfToken = async () => {
+const getCsrfToken = () => {
   const headers = {
     "X-CSRF-Token": "undefined",
     Refererer: window.location.href,
@@ -42,9 +43,9 @@ export default class RadixConnectMigrate extends Component {
       this.radixDappToolkit.disconnect();
 
       this.radixDappToolkit.walletApi.setRequestData(
-        RDT.DataRequestBuilder.persona().withProof(),
-        RDT.DataRequestBuilder.personaData().fullName().emailAddresses(),
-        RDT.DataRequestBuilder.accounts().atLeast(1).withProof()
+        RDT.DataRequestBuilder.persona().withProof(true),
+        RDT.DataRequestBuilder.personaData().emailAddresses(),
+        RDT.DataRequestBuilder.accounts()
       );
 
       const getChallenge = () =>
@@ -57,14 +58,15 @@ export default class RadixConnectMigrate extends Component {
       this.radixDappToolkit.walletApi.provideChallengeGenerator(getChallenge);
 
       this.radixDappToolkit.walletApi.dataRequestControl(
-        async ({ proofs, personaData }) => {
-          const { valid, rolaPassword } = await fetch(
+        async ({ proofs, personaData, persona }) => {
+          const { valid, username, email, rolaPassword } = await fetch(
             `${this.siteSettings.radix_rola_api_url}/verify`,
             {
               method: "POST",
               body: JSON.stringify({
                 proofs,
                 personaData,
+                persona,
                 migrationAuth: {
                   id: this.currentUser.id,
                   clientId: this.currentUser.session.messageBus.clientId,
@@ -82,6 +84,22 @@ export default class RadixConnectMigrate extends Component {
           if (!valid) {
             this.radixDappToolkit.disconnect();
           }
+
+          await fetch(`/radix-connect/update-user`, {
+            method: "POST",
+            body: JSON.stringify({
+              username,
+              email,
+              password: rolaPassword,
+            }),
+            headers: {
+              "content-type": "application/json",
+              "X-CSRF-Token": await getCsrfToken(),
+            },
+            credentials: "include",
+          }).then(() => {
+            logout();
+          });
         }
       );
 

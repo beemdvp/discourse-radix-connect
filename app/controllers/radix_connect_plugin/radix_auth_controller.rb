@@ -6,6 +6,14 @@ module ::RadixConnectPlugin
     requires_plugin PLUGIN_NAME
     requires_login
 
+    def index
+      render json: {
+        success: true,
+        username: current_user.username,
+        email: current_user.email
+      }
+    end
+
     def create
       rola_password = params["password"]
       requested_email = params["email"]

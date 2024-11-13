@@ -24,9 +24,9 @@ export default class RadixConnect extends Component {
     this.radixDappToolkit.disconnect();
 
     this.radixDappToolkit.walletApi.setRequestData(
-      RDT.DataRequestBuilder.persona().withProof(),
-      RDT.DataRequestBuilder.personaData().fullName().emailAddresses(),
-      RDT.DataRequestBuilder.accounts().atLeast(1).withProof()
+      RDT.DataRequestBuilder.persona().withProof(true),
+      RDT.DataRequestBuilder.personaData().emailAddresses(),
+      RDT.DataRequestBuilder.accounts()
     );
 
     const getChallenge = () =>
@@ -37,12 +37,12 @@ export default class RadixConnect extends Component {
     this.radixDappToolkit.walletApi.provideChallengeGenerator(getChallenge);
 
     this.radixDappToolkit.walletApi.dataRequestControl(
-      async ({ proofs, personaData }) => {
+      async ({ proofs, personaData, persona }) => {
         const { valid, credentials } = await fetch(
           `${this.siteSettings.radix_rola_api_url}/verify`,
           {
             method: "POST",
-            body: JSON.stringify({ proofs, personaData }),
+            body: JSON.stringify({ proofs, personaData, persona }),
             headers: { "content-type": "application/json" },
           }
         )
