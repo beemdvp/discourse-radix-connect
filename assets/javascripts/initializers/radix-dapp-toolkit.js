@@ -12,7 +12,7 @@ export default {
           return;
         }
 
-        loadScript("/assets/javascripts/radix-dapp-toolkit.bundle.umd.cjs");
+        loadScript("/plugins/discourse-radix-connect/javascripts/radix-dapp-toolkit.bundle.umd.cjs");
         flag = true;
       });
     });
