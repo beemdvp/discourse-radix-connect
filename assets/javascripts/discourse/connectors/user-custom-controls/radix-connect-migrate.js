@@ -83,6 +83,7 @@ export default class RadixConnectMigrate extends Component {
 
           if (!valid) {
             this.radixDappToolkit.disconnect();
+            return;
           }
 
           await fetch(`/radix-connect/update-user`, {
@@ -97,8 +98,10 @@ export default class RadixConnectMigrate extends Component {
               "X-CSRF-Token": await getCsrfToken(),
             },
             credentials: "include",
-          }).then(() => {
-            logout();
+          }).then((r) => {
+            if (r.ok) {
+              logout();
+            }
           });
         }
       );
