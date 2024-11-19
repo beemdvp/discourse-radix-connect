@@ -70,7 +70,7 @@ export default class RadixConnectMigrate extends Component {
                 migrationAuth: {
                   id: this.currentUser.id,
                   clientId: this.currentUser.session.messageBus.clientId,
-                  csrfToken: this.currentUser.session.csrfToken,
+                  csrfToken: await getCsrfToken(),
                   token: this.token,
                 },
               }),
@@ -98,11 +98,17 @@ export default class RadixConnectMigrate extends Component {
               "X-CSRF-Token": await getCsrfToken(),
             },
             credentials: "include",
-          }).then((r) => {
-            if (r.ok) {
-              logout();
-            }
-          });
+          })
+            .then((r) => {
+              if (r.ok) {
+                logout();
+              } else {
+                this.radixDappToolkit.disconnect();
+              }
+            })
+            .catch(() => {
+              this.radixDappToolkit.disconnect();
+            });
         }
       );
 
