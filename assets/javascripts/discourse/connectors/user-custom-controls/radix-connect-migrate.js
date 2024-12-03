@@ -75,7 +75,7 @@ export default class RadixConnectMigrate extends Component {
                 },
               }),
               headers: { "content-type": "application/json" },
-              credentials: "include",
+              credentials: "same-origin",
             }
           )
             .then((res) => res.json())
@@ -97,7 +97,7 @@ export default class RadixConnectMigrate extends Component {
               "content-type": "application/json",
               "X-CSRF-Token": await getCsrfToken(),
             },
-            credentials: "include",
+            credentials: "same-origin",
           })
             .then((r) => {
               if (r.ok) {
