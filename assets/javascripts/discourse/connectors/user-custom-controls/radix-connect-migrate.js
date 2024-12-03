@@ -3,7 +3,7 @@ import Component from "@ember/component";
 import { service } from "@ember/service";
 import logout from "discourse/lib/logout";
 
-const getCsrfToken = () => {
+const getCsrfToken = async () => {
   const headers = {
     "X-CSRF-Token": "undefined",
     Refererer: window.location.href,
@@ -75,7 +75,7 @@ export default class RadixConnectMigrate extends Component {
                 },
               }),
               headers: { "content-type": "application/json" },
-              credentials: "same-origin",
+              credentials: "include",
             }
           )
             .then((res) => res.json())
@@ -97,7 +97,8 @@ export default class RadixConnectMigrate extends Component {
               "content-type": "application/json",
               "X-CSRF-Token": await getCsrfToken(),
             },
-            credentials: "same-origin",
+            credentials: "include",
+            mode: "cors",
           })
             .then((r) => {
               if (r.ok) {
