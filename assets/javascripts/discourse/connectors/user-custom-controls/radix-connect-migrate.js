@@ -76,6 +76,7 @@ export default class RadixConnectMigrate extends Component {
               }),
               headers: { "content-type": "application/json" },
               credentials: "include",
+              mode: "cors",
             }
           )
             .then((res) => res.json())
