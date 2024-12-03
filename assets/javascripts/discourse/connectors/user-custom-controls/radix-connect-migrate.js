@@ -69,6 +69,7 @@ export default class RadixConnectMigrate extends Component {
                 persona,
                 migrationAuth: {
                   id: this.currentUser.id,
+                  username: this.currentUser.username,
                   clientId: this.currentUser.session.messageBus.clientId,
                   csrfToken: await getCsrfToken(),
                   token: this.token,
